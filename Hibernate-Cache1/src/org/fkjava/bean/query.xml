@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.fkjava.bean">
+	<!-- 推荐将 HQL 语句定义的一个统一的配置文件中方便以后维护 
+		注意： 语句不能有 分号
+	-->
+	<query name="seletePerson">
+		from Person p where p.name like :n
+	</query>
+	<!-- 如果有一些特殊符号可以 对应的转换符 替代 （可以参考editplus中的特殊符号） -->
+	<query name="seletePerson2">
+		from Person p where p.id &lt; 5
+	</query>
+	<!-- 如果有一些特殊符号还可以 使用 CDATA进行忽略处理 -->
+	<query name="seletePerson3">
+		<![CDATA[from Person p where p.id < 5]]>
+	</query>
+</hibernate-mapping>

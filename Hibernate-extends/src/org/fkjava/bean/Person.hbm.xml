@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 单表继承关系  配置实现 
+	因为是多个子类都存储在 同一张表中，为了区分不同的子类，单表继承策略使用了一个 辨别列（discriminator）
+	注意：discriminator 辨别列一定要定义在 id 后面，紧跟id配置
+	type="string" 指定辨别列类型  column="type_id" 辨别列名称
+	
+	通过subclass引入 子类
+	
+ -->
+<hibernate-mapping package="org.fkjava.bean">
+	<class name="Person" table="t_person" >
+		<id name="id"><generator class="identity"/></id>
+		<discriminator type="string" column="type_id"/>
+		<property name="name"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		
+		<subclass name="Student">
+			<property name="classId"/>
+			<property name="className"/>
+			<property name="course"/>
+		</subclass>
+
+	</class>
+	
+</hibernate-mapping>

@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- default-access="field" 属性的访问策略
+	 field 表示持久化类属性通过反射方式进行操作
+	 property 表示持久化类属性通过getting/setting方法进行操作 (默认值)
+ -->
+<hibernate-mapping package="org.fkjava.bean">
+	<!--  
+		mutable="false" 表示不允许执行Update操作修改Person类对应的数据;
+		dynamic-insert  表示支持动态新增操作（只新增赋了值的属性） 默认值false;
+		dynamic-update  表示支持动态更新操作（只更新赋了值的属性）默认值false;
+	    select-before-update  表示在执行更新之前先发起SQL语句查询需要更新的对象是否与数据库表的数据不一致
+	    	如果不一致 就执行更新操作。 默认值false;
+	    where 表示执行查询操作的时候附加一个标准SQL 格式的 条件 （where="t_name='tom2'"）;
+	-->
+	<class name="Person" table="t_person" >
+		
+		<id name="id">
+		
+			<generator class="identity"/>
+		</id>
+		
+		<property name="name" column="t_name"/>
+		
+		<property name="password" column="t_pass"/>
+	
+		<property name="birthday" type="timestamp"/>
+		<!-- formula 表示 获得一些额外的数据 ，其中count是Pesron类的一个属性，
+				但是这个属性在表中没有对应的数据列，
+				而是通过一个formula中指定的子查询来完成 
+				formula中的查询需要使用一个 括号 括起来
+				formula中的查询是一个标准的SQL语句 
+		-->
+		<property name="count" formula="(select count(*) from t_person)"/>
+	</class>
+
+</hibernate-mapping>

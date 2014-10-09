@@ -1,0 +1,44 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- 显示执行SQL语句 -->
+		<property name="show_sql">true</property>
+		 <!-- 格式化SQL语句 -->
+		<property name="format_sql">false</property>
+		<!-- 驱动 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<!-- 数据库url-->
+		<property name="hibernate.connection.url">jdbc:mysql:///hibernate_db</property>
+		<!-- 访问数据库用户名 -->
+		<property name="hibernate.connection.username">root</property>
+		<!-- 访问数据库密码 -->
+		<property name="hibernate.connection.password">root</property>
+		
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- 开启二级缓存的支持  默认是开启状态-->
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<!-- 开启查询缓存
+			查询缓存需要依赖 二级缓存存在
+			查询缓存只缓存 查询语句，不缓存对象实体，
+			当查询语句变化的时候查询缓存就失效
+		 -->
+		<property name="hibernate.cache.use_query_cache">true</property>
+		
+		<!-- 配置二级缓存的实现类
+			org.hibernate.cache.internal.EhCacheRegionFactory 配置文件中写的可能是没有更新
+			可以参考hibernate-ehcache-4.1.9.Final.jar的类路径
+		 -->
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</property>
+		
+		
+		<!-- 引入对应的需要持久化类的配置文件 -->
+		<mapping resource="org/fkjava/bean/Person.hbm.xml"/>
+		
+	</session-factory>
+</hibernate-configuration>

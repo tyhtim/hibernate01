@@ -1,0 +1,31 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- 显示执行SQL语句 -->
+		<property name="show_sql">true</property>
+		 <!-- 格式化SQL语句 -->
+		<property name="format_sql">false</property>
+		<!-- 驱动 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<!-- 数据库url-->
+		<property name="hibernate.connection.url">jdbc:mysql:///hibernate_db</property>
+		<!-- 访问数据库用户名 -->
+		<property name="hibernate.connection.username">root</property>
+		<!-- 访问数据库密码 -->
+		<property name="hibernate.connection.password">root</property>
+		
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- 通过getCurrentSession()获得线程环境中使用的一个线程安全的session的配置 -->
+		<property name="hibernate.current_session_context_class">thread</property>
+		
+		<!-- 引入对应的需要持久化类的配置文件 -->
+		<mapping resource="org/fkjava/bean/Person.hbm.xml"/>
+		
+	</session-factory>
+</hibernate-configuration>

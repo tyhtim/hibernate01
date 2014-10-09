@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 一对一  外键  双向 关联关系 配置  -->
+<hibernate-mapping package="org.fkjava.bean">
+	<class name="Person" table="t_person" >
+		<id name="id"><generator class="identity"/></id>
+		<property name="name"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		<!--
+		one-to-one 表示 一对一 配置
+		cascade 表示级联操作（当保存Person的时候，会一并将配置了关联关系的address保存）
+		all 表示级联操作 save ，update，delete
+		none 表示不进行级联操作（默认值）
+		save-update 表示在进行save和update操作的时候执行级联操作
+		delete 表示在进行delete操作的时候执行级联操作
+		-->
+		<one-to-one name="address" cascade="all"/>
+	</class>
+	<class name="Address" table="t_address">
+		<id name="id"><generator class="identity"/></id>
+		<property name="codes"/>
+		<property name="des"/>
+		<!-- 一对一 外键 关联关系 实际就 一对多 外键关联关系的提供特例 
+		unique表示唯一约束
+		将 unique 设置为true 表示 一对一，设置为false 表示 一对多 
+		column表示指定t_address表中的哪一个外键 对应t_person主表来进行关系的关联
+		column也可以不用指定
+		-->
+		<many-to-one name="person"  unique="true" column="p_id"/>
+	</class>
+</hibernate-mapping>

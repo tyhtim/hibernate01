@@ -1,0 +1,18 @@
+<ehcache>
+	<!-- 缓存配置路径-->
+    <diskStore path="c:/temp_cache"/>
+    <!--
+        maxElementsInMemory -缓存的数据实例 
+        eternal            - 设置缓存中数据是否失效
+        timeToIdleSeconds  - 缓存数据存在时间（120秒）
+        timeToLiveSeconds  - 指定的缓存时间到了以后，再过多长时间释放缓存数据
+        overflowToDisk     - 当缓存数据超过maxInMemory设置的最大的缓存数量的时候，是否进行磁盘缓存
+        -->
+    <defaultCache
+        maxElementsInMemory="5"
+        eternal="false"
+        timeToIdleSeconds="120"
+        timeToLiveSeconds="120"
+        overflowToDisk="true"
+        />
+</ehcache>

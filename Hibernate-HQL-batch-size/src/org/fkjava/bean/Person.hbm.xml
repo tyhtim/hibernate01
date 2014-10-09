@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 一对多  外键  双向 关联关系 配置  -->
+<hibernate-mapping package="org.fkjava.bean">
+	<class name="Person" table="t_person">
+		<id name="id"><generator class="identity"/></id>
+		<property name="name"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		<!-- 通过Set配置一个人对应的多个地址的关联关系
+			inverse=true表示在Person端不维护关系
+		 -->
+		<set name="addressSet" cascade="all" inverse="true" batch-size="3">
+			<!-- 指定adddrssSet集合中的数据对应t_person的的一个外键 -->
+			<key column="p_id"/>
+			<!-- 指定Person 关联的实例类型 -->
+			<one-to-many class="Address"/>
+		</set>
+	</class>
+	
+	<class name="Address" table="t_address">
+		<id name="id"><generator class="identity"/></id>
+		<property name="codes"/>
+		<property name="des"/>
+		<!-- not-null="true" 指定外键不能为 null -->
+		<many-to-one name="person" column="p_id" not-null="true"/>
+	</class>
+</hibernate-mapping>

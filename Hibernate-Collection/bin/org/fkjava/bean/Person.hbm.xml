@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- default-access="field" 属性的访问策略
+	 field 表示持久化类属性通过反射方式进行操作
+	 property 表示持久化类属性通过getting/setting方法进行操作 (默认值)
+ -->
+<hibernate-mapping package="org.fkjava.bean">
+
+	<class name="Person" table="t_person" >
+		
+		<id name="id">
+		
+			<generator class="identity"/>
+		</id>
+		
+		<property name="name" column="t_name"/>
+		
+		<property name="password" column="t_pass"/>
+	
+		<property name="birthday" type="timestamp"/>
+		<!-- 效率底下，通常不建议使用 -->
+		<array name="my_array" table="t_array">
+			<key column="id"/><!-- 指定t_array表的数据与与t_person表的数据的关系 -->
+			<list-index column="indexs"/><!-- 因为array是顺序的，使用需要保存数据的顺序值 -->
+			<element type="java.lang.String" column="value"/><!-- 指定数组中的元素类型和存储在什么列中 -->
+		</array>
+		
+		<list name="my_list">
+			<key column="id"/>
+			<list-index column="indexs"/>
+			<element type="java.lang.String" column="value"/>
+		</list>
+		
+		<map name="my_map">
+			<key column="id"/>
+			<!-- 指定什么列存储map的key数据  -->
+			<map-key type="java.lang.String" column="key_id"/>
+			<element type="java.lang.String" column="value"/>
+		</map>
+		<!-- 因为set是没有顺序的所以不需要list—index属性 -->
+		<set name="my_set">
+			<key column="id"/>
+			<element type="java.lang.String" column="value"/>
+		</set>
+
+	</class>
+</hibernate-mapping>

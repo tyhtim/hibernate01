@@ -1,0 +1,39 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<session-factory>
+		<!-- 显示执行SQL语句 -->
+		<property name="show_sql">true</property>
+		 <!-- 格式化SQL语句 -->
+		<property name="format_sql">false</property>
+		<!-- 驱动 -->
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<!-- 数据库url-->
+		<property name="hibernate.connection.url">jdbc:mysql:///hibernate_db</property>
+		<!-- 访问数据库用户名 -->
+		<property name="hibernate.connection.username">root</property>
+		<!-- 访问数据库密码 -->
+		<property name="hibernate.connection.password">root</property>
+		<!-- 方言（为了更好的操作具体的数据库） 
+			如果使用的mysql数据版本在5.5之后的话，方言通常建议使用MySQL5InnoDBDialect
+			MySQLDialect 不支持事务
+			MySQLInnoDBDialect 支持事务
+		 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
+		<!-- 自动创建表结构配置
+			create-drop 在程序启动的时候创建对应数据库表结构，当SessionFatory关闭的时候会将创建的表结构删除
+			create 在每次程序启动的时候先删除上次创建的数据库表结构，然后再创建对应新数据库表结构。
+			update 在每次启动的时候会追加修改的表结构，但是不会影响原来的数据 （通常用这个）
+			validate 在每次启动的时候会验证并修改的表结构。
+		 -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		
+		<!-- 引入对应的需要持久化类的配置文件 -->
+		<mapping resource="org/fkjava/bean/Person.hbm.xml"/>
+		<!-- 引入一个专门定义HQL语句的文件 ，这样方便以后维护-->
+		<mapping resource="org/fkjava/bean/query.xml"/>
+		
+	</session-factory>
+</hibernate-configuration>

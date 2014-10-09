@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 
+	采用每个具体类一张表
+	子类保存了继承的属性数据和自己扩展的属性数据
+ -->
+<hibernate-mapping package="org.fkjava.bean">
+	<class name="Person" table="t_person" >
+		<id name="id"><generator class="hilo"/></id>
+		
+		<property name="name"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		
+		<union-subclass name="Student" >
+			<property name="classId"/>
+			<property name="className"/>
+			<property name="course"/>
+		</union-subclass>
+	</class>
+	
+</hibernate-mapping>

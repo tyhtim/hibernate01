@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 本文件就是一个java对象到关系数据库的映射配置文件 -->
+<hibernate-mapping package="org.fkjava.bean" >
+	<!-- class 配置 类 对应表的映射配置
+		name 表示类名
+		table 表示关系数据库中的表名
+	 -->
+	<class name="Person" table="t_person">
+		<!-- id 指定Person类中那个属性是Id -->
+		<id name="id">
+			<!-- id生成策略 -->
+			<generator class="native"/>
+		</id>
+		<!-- Person类的其他属性配置
+			name 对应  类的属性
+			column 对应表的字段名（如果没有设置column将使用name的值创建对应的列名）
+		 -->
+		<property name="name" column="t_name"/>
+		
+		<property name="password" column="t_pass"/>
+		<!-- type 表示指定属性 对应的hibernate类型
+			date  2013-02-17
+			time  17:02:28
+			timestamp  2013-02-17 17:03:07    默认
+		 -->
+		<property name="birthday" type="timestamp"/>
+		
+	</class>
+
+</hibernate-mapping>

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 多对多   双向 关联关系 配置  -->
+<hibernate-mapping package="org.fkjava.bean">
+	<class name="Person" table="t_person" >
+		<id name="id"><generator class="identity"/></id>
+		<property name="name"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		<!-- table 指定一个中间表名  多对多的配置中中间表名要一致-->
+		<set name="addressSet" inverse="true" table="join_person_addrss">
+			<!-- 在中间表中使用p_id 关联_person数据  -->
+			<key column="p_id" not-null="true"/>
+			<!-- 指定t_pseron表与t_address 的关联关系使用a_id 维护 -->
+			<many-to-many column="a_id" class="Address"/>
+		</set>
+	</class>
+	
+	<class name="Address" table="t_address">
+		<id name="id"><generator class="identity"/></id>
+		<property name="codes"/>
+		<property name="des"/>
+		<set name="personSet" table="join_person_addrss">
+			<key column="a_id" not-null="true"/>
+			<many-to-many column="p_id" class="Person"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- default-access="field" 属性的访问策略
+	 field 表示持久化类属性通过反射方式进行操作
+	 property 表示持久化类属性通过getting/setting方法进行操作 (默认值)
+ -->
+<hibernate-mapping package="org.fkjava.bean">
+
+	<class name="Person" table="t_person" >
+		
+		<id name="id">
+		
+			<generator class="identity"/>
+		</id>
+		
+		<property name="name" column="t_name"/>
+		
+		<property name="password" column="t_pass"/>
+	
+		<property name="birthday" type="timestamp"/>
+		<!-- 动态组件的配置 
+			name 对应 Person类中的Map属性的变量名
+		-->
+		<dynamic-component name="attr">
+			<!-- name 对应 map中存储数据的key
+				 type 对应存储数据的类型 
+			-->
+			<property name="key_1" type="string"/>
+			<property name="key_2" type="string"/>
+			<property name="key_3" type="string"/>
+		</dynamic-component>
+		
+
+	</class>
+</hibernate-mapping>

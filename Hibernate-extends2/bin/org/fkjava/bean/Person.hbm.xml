@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+<!-- 
+	具体表继承
+	子类扩展的数据保存在子类表中，继承的数据保存的父类表中  配置实现（如果才ER图上看就是一个一对一关系）
+	因为子类的数据保存在自己的表中，所以不需要类似 单表继承 辨别列  而是通过一个 主键关联 
+	
+ -->
+<hibernate-mapping package="org.fkjava.bean">
+	<class name="Person" table="t_person" >
+		<id name="id"><generator class="identity"/></id>
+		
+		<property name="name"/>
+		<property name="password"/>
+		<property name="birthday"/>
+		
+		<joined-subclass name="Student">
+			<key column="id"/>
+			<property name="classId"/>
+			<property name="className"/>
+			<property name="course"/>
+		</joined-subclass>
+
+	</class>
+	
+</hibernate-mapping>

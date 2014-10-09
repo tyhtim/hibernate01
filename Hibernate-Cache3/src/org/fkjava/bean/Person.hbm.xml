@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping SYSTEM "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.fkjava.bean">
+	
+	<class name="Person" table="t_person" >
+		<!-- 设置本类需要存储到二级缓存中 -->
+		<cache usage="read-write"/>
+		<!--还可以在hibernate.cfg.xml文件中配置如下 设置需要存储到二级缓存中实例 		
+		<class-cache usage="read-only" class="org.fkjava.bean.Person"/>
+		-->
+		<id name="id">
+			<generator class="identity"/>
+		</id>
+		
+		<property name="name" column="t_name"/>
+		
+		<property name="password" column="t_pass"/>
+	
+		<property name="birthday" type="timestamp"/>
+	</class>
+</hibernate-mapping>
